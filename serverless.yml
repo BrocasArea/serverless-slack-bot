@@ -1,0 +1,84 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: serverless-slack-random-bot # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  # profile: brocas
+  stage: dev
+  region: us-west-2
+
+custom:
+  writeEnvVars:
+    # SERVERLESS_STAGE: ${self:custom.stage}
+    # SERVERLESS_SERVICE_NAME: ${self:service}
+    # SCHEDULE: ${file(./environment.yml):globalSchedule}
+    SLACK_WEBHOOK: ${file(./environment.yml):slackWebhook}
+    ROLL_API_URL: ${file(./environment.yml):rollApiUrl}
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+
+# you can overwrite defaults here
+#defaults:
+#  stage: dev
+#  region: us-east-1
+
+# you can add packaging information here
+#package:
+#  include:
+#    - include-me.js
+#  exclude:
+#    - exclude-me.js
+#  artifact: my-service-code.zip
+
+functions:
+  hello:
+    handler: functions/handler.hello
+    events:
+      - http: GET roll/again
+#      - s3: ${env.BUCKET}
+#      - schedule: rate(10 minutes)
+      - schedule: cron(0 3 ? * 1-5 *) # 3 點 = 台灣時間早上 11 點
+#      - sns: greeter-topic
+    memorySize: 128 # optional, default is 1024
+    timeout: 10 # optional, default is 6
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
+
+plugins:
+  - serverless-plugin-write-env-vars

@@ -1,0 +1,17 @@
+{
+  "name": "serverless-slack-random-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "source ./run-env; serverless deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "~2.0.0",
+    "serverless-plugin-write-env-vars": "~1.0.1",
+    "unirest": "~0.5.1"
+  }
+}
