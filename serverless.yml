@@ -63,7 +63,7 @@ functions:
       - http: GET roll/again
 #      - s3: ${env.BUCKET}
 #      - schedule: rate(10 minutes)
-      - schedule: cron(0 3 ? * 1-5 *) # 3 點 = 台灣時間早上 11 點
+      - schedule: cron(0 3 ? * MON-FRI *) # 3 點 = 台灣時間早上 11 點
 #      - sns: greeter-topic
     memorySize: 128 # optional, default is 1024
     timeout: 10 # optional, default is 6
