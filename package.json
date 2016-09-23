@@ -13,5 +13,10 @@
     "dotenv": "~2.0.0",
     "serverless-plugin-write-env-vars": "~1.0.1",
     "unirest": "~0.5.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
